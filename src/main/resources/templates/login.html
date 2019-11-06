@@ -140,7 +140,7 @@
         </div>
         <div class="input_outer">
             <span class="us_uer"></span>
-            <input id="password" name="password" class="text" type="password" placeholder="任意密码">
+            <input id="password" name="password" class="text" type="password" placeholder="密码">
         </div>
         <div class="mb2">
             <a class="act-but submit" onclick="login()">登录</a>
@@ -154,7 +154,7 @@
      * 登陆聊天
      */
     function login() {
-        location.href = '/index?username='+$('#username').val();
+        location.href = '/index?username=' + $('#username').val() + '&password=' + $('#password').val();
     }
 
     /**

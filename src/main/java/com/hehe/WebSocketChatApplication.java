@@ -29,11 +29,18 @@ public class WebSocketChatApplication {
     @GetMapping("/index")
     public ModelAndView index(String username, String password, HttpServletRequest request) throws UnknownHostException {
         if (StringUtils.isEmpty(username)) {
-            username = "匿名用户";
+            username = "匿名用户 " + (int) ((Math.random() * 9 + 1) * 1000);
         }
+
         ModelAndView mav = new ModelAndView("/chat");
+//        if (StringUtils.isEmpty(password)) {
+//            if (!password.endsWith("123456")) {
+//                return mav;
+//            }
+//        }
+        System.out.println("password:" + password);
         mav.addObject("username", username);
-        mav.addObject("webSocketUrl", "ws://"+InetAddress.getLocalHost().getHostAddress()+":"+request.getServerPort()+request.getContextPath()+"/chat");
+        mav.addObject("webSocketUrl", "ws://" + InetAddress.getLocalHost().getHostAddress() + ":" + request.getServerPort() + request.getContextPath() + "/chat");
         return mav;
     }
 

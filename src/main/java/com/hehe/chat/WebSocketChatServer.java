@@ -3,11 +3,14 @@ package com.hehe.chat;
 import com.alibaba.fastjson.JSON;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.websocket.*;
+import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
  * WebSocket 聊天服务端
@@ -17,7 +20,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 
 @Component
-@ServerEndpoint("/chat")
+@ServerEndpoint("/chat/{username}")
 public class WebSocketChatServer {
 
     /**
@@ -25,15 +28,18 @@ public class WebSocketChatServer {
      */
     private static Map<String, Session> onlineSessions = new ConcurrentHashMap<>();
 
+    private static CopyOnWriteArraySet<Object> onlineUsers = new CopyOnWriteArraySet<>();
+
+
 
     /**
      * 当客户端打开连接：1.添加会话对象 2.更新在线人数
      */
     @OnOpen
-    public void onOpen(Session session) {
+    public void onOpen(@PathParam("username")String username, Session session) {
+        onlineUsers.add(username);
         onlineSessions.put(session.getId(), session);
-        sendMessageToAll(Message.jsonStr(Message.ENTER, "", "", onlineSessions.size()));
-//        onMessage(session, JSON.toJSONString(new Message(null, "系统", "欢迎", onlineSessions.size())));
+        sendMessageToAll(Message.jsonStr(Message.ENTER, "", "", onlineSessions.size(),onlineUsers));
     }
 
     /**
@@ -44,16 +50,17 @@ public class WebSocketChatServer {
     @OnMessage
     public void onMessage(Session session, String jsonStr) {
         Message message = JSON.parseObject(jsonStr, Message.class);
-        sendMessageToAll(Message.jsonStr(Message.SPEAK, message.getUsername(), message.getMsg(), onlineSessions.size()));
+        sendMessageToAll(Message.jsonStr(Message.SPEAK, message.getUsername(), message.getMsg(), onlineSessions.size(),onlineUsers));
     }
 
     /**
      * 当关闭连接：1.移除会话对象 2.更新在线人数
      */
     @OnClose
-    public void onClose(Session session) {
+    public void onClose(@PathParam("username")String username,Session session) {
+        onlineUsers.remove(username);
         onlineSessions.remove(session.getId());
-        sendMessageToAll(Message.jsonStr(Message.QUIT, "", "", onlineSessions.size()));
+        sendMessageToAll(Message.jsonStr(Message.QUIT, "", "", onlineSessions.size(),onlineUsers));
     }
 
     /**

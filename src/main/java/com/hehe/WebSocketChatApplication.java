@@ -33,16 +33,11 @@ public class WebSocketChatApplication {
         }
 
         ModelAndView mav = new ModelAndView("/chat");
-//        if (StringUtils.isEmpty(password)) {
-//            if (!password.endsWith("123456")) {
-//                return mav;
-//            }
-//        }
         System.out.println("登录用户 :" + username);
         System.out.println("密码 :" + password);
-        System.out.println("ip地址 :" + InetAddress.getLocalHost().getHostAddress());
         mav.addObject("username", username);
-        mav.addObject("webSocketUrl", "ws://" + InetAddress.getLocalHost().getHostAddress() + ":" + request.getServerPort() + request.getContextPath() + "/chat");
+//        mav.addObject("webSocketUrl", "ws://" + InetAddress.getLocalHost().getHostAddress() + ":" + request.getServerPort() + request.getContextPath() + "/chat");
+        request.getSession().setAttribute("username", username);
         return mav;
     }
 

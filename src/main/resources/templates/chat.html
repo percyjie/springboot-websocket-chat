@@ -47,6 +47,19 @@
                                 onclick="clearMsg()">清屏
                         </button>
                     </div>
+                    <i class="mdui-icon material-icons">当前在线：</i>
+                    <div class="userList-container">
+
+                        <ul class="mdui-list">
+                            <li class="mdui-list-item mdui-ripple">
+                                <div class="mdui-list-item-content">Brendan Lim</div>
+                                <i class="mdui-list-item-icon mdui-icon material-icons">chat_bubble</i>
+                            </li>
+                        </ul>
+
+                    </div>
+
+
                 </div>
             </div>
 
@@ -86,8 +99,8 @@
          * WebSocket客户端 PS：URL开头表示WebSocket协议 中间是域名端口 结尾是服务端映射地址
          */
         // var webSocket = new WebSocket(/*[[${webSocketUrl}]]*/ 'ws://localhost:8080/chat');
-        // var webSocket = new WebSocket('ws://localhost:8080/chat');
-        var webSocket = new WebSocket('ws://122.51.186.13:8080/chat');
+        var webSocket = new WebSocket('ws://localhost:8080/chat/'+$('#username').text());
+        // var webSocket = new WebSocket('ws://122.51.186.13:8080/chat');
         /**
          * 当服务端打开连接
          */
@@ -113,6 +126,14 @@
                     '</div></div>');
             }
             $('.chat-num').text(message.onlineCount);
+
+            var $userList = $('.userList-container');
+
+            $userList.append(
+
+
+            )
+
             //防止刷屏
             var $cards = $messageContainer.children('.mdui-card:visible').toArray();
             if ($cards.length > 5) {

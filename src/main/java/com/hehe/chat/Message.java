@@ -19,15 +19,18 @@ public class Message {
 
     private int onlineCount; //在线用户数
 
-    public static String jsonStr(String type, String username, String msg, int onlineTotal) {
-        return JSON.toJSONString(new Message(type, username, msg, onlineTotal));
+    private Object onlineUsers;
+
+    public static String jsonStr(String type, String username, String msg, int onlineTotal,Object onlineUsers) {
+        return JSON.toJSONString(new Message(type, username, msg, onlineTotal ,onlineUsers));
     }
 
-    public Message(String type, String username, String msg, int onlineCount) {
+    public Message(String type, String username, String msg, int onlineCount, Object onlineUsers) {
         this.type = type;
         this.username = username;
         this.msg = msg;
         this.onlineCount = onlineCount;
+        this.onlineUsers = onlineUsers;
     }
 
     public static String getENTER() {
@@ -72,5 +75,13 @@ public class Message {
 
     public void setOnlineCount(int onlineCount) {
         this.onlineCount = onlineCount;
+    }
+
+    public Object getOnlineUsers() {
+        return onlineUsers;
+    }
+
+    public void setOnlineUsers(Object onlineUsers) {
+        this.onlineUsers = onlineUsers;
     }
 }

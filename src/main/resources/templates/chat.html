@@ -86,7 +86,8 @@
          * WebSocket客户端 PS：URL开头表示WebSocket协议 中间是域名端口 结尾是服务端映射地址
          */
         // var webSocket = new WebSocket(/*[[${webSocketUrl}]]*/ 'ws://localhost:8080/chat');
-        var webSocket = new WebSocket('ws://122.51.186.13:8080/chat');
+        var webSocket = new WebSocket('ws://localhost:8080/chat');
+        // var webSocket = new WebSocket('ws://122.51.186.13:8080/chat');
         /**
          * 当服务端打开连接
          */
@@ -107,7 +108,7 @@
                 $messageContainer.append(
                     '<div class="mdui-card" style="margin: 10px 0;">' +
                     '<div class="mdui-card-primary">' +
-                    '<div class="mdui-card-content message-content">' + message.username + "：" + message.msg + '</div>' +
+                    '<div class="mdui-card-content message-content">' + message.username + "：" + message.msg + '<span style="float: right">'+ new Date().toLocaleTimeString()+'</span>' +'</div>' +
                     '</div></div>');
             }
             $('.chat-num').text(message.onlineCount);
@@ -166,6 +167,7 @@
         var e = event || window.event || arguments.callee.caller.arguments[0];
         e.keyCode === 13 && sendMsgToServer();
     };
+
 
 
 </script>

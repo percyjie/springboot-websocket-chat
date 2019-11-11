@@ -41,7 +41,7 @@ public class WebSocketChatApplication {
         System.out.println("登录用户 :" + username);
         System.out.println("密码 :" + password);
         mav.addObject("username", username);
-        mav.addObject("webSocketUrl", "ws://" + InetAddress.getLocalHost().getHostAddress() + ":" + request.getServerPort() + request.getContextPath() + "/chat");
+//        mav.addObject("webSocketUrl", "ws://" + InetAddress.getLocalHost().getHostAddress() + ":" + request.getServerPort() + request.getContextPath() + "/chat");
         return mav;
     }
 

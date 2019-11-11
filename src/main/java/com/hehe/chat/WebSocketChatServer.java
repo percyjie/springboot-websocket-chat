@@ -33,7 +33,7 @@ public class WebSocketChatServer {
     public void onOpen(Session session) {
         onlineSessions.put(session.getId(), session);
         sendMessageToAll(Message.jsonStr(Message.ENTER, "", "", onlineSessions.size()));
-        onMessage(session, JSON.toJSONString(new Message(null, "系统", "欢迎", onlineSessions.size())));
+//        onMessage(session, JSON.toJSONString(new Message(null, "系统", "欢迎", onlineSessions.size())));
     }
 
     /**

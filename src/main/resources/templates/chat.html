@@ -93,6 +93,7 @@
          */
         webSocket.onopen = function (event) {
             console.log('WebSocket打开连接');
+            webSocket.send(JSON.stringify({username:'系统', msg: '欢迎'+ $('#username').text()+'加入聊天室,请开始你的表演'}));
         };
 
         /**

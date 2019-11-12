@@ -2,6 +2,8 @@ package com.hehe.chat;
 
 import com.alibaba.fastjson.JSON;
 
+import java.util.Set;
+
 /**
  * WebSocket 聊天消息类
  */
@@ -19,13 +21,13 @@ public class Message {
 
     private int onlineCount; //在线用户数
 
-    private Object onlineUsers;
+    private Set onlineUsers;
 
-    public static String jsonStr(String type, String username, String msg, int onlineTotal,Object onlineUsers) {
+    public static String jsonStr(String type, String username, String msg, int onlineTotal,Set onlineUsers) {
         return JSON.toJSONString(new Message(type, username, msg, onlineTotal ,onlineUsers));
     }
 
-    public Message(String type, String username, String msg, int onlineCount, Object onlineUsers) {
+    public Message(String type, String username, String msg, int onlineCount, Set onlineUsers) {
         this.type = type;
         this.username = username;
         this.msg = msg;
@@ -77,11 +79,11 @@ public class Message {
         this.onlineCount = onlineCount;
     }
 
-    public Object getOnlineUsers() {
+    public Set getOnlineUsers() {
         return onlineUsers;
     }
 
-    public void setOnlineUsers(Object onlineUsers) {
+    public void setOnlineUsers(Set onlineUsers) {
         this.onlineUsers = onlineUsers;
     }
 }

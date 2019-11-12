@@ -28,7 +28,7 @@ public class WebSocketChatServer {
      */
     private static Map<String, Session> onlineSessions = new ConcurrentHashMap<>();
 
-    private static CopyOnWriteArraySet<Object> onlineUsers = new CopyOnWriteArraySet<>();
+    private static CopyOnWriteArraySet<String> onlineUsers = new CopyOnWriteArraySet<>();
 
 
 

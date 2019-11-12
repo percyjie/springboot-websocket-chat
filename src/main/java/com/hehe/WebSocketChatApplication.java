@@ -1,5 +1,6 @@
 package com.hehe;
 
+import com.hehe.chat.IpUtil;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,7 +38,6 @@ public class WebSocketChatApplication {
         System.out.println("密码 :" + password);
         mav.addObject("username", username);
 //        mav.addObject("webSocketUrl", "ws://" + InetAddress.getLocalHost().getHostAddress() + ":" + request.getServerPort() + request.getContextPath() + "/chat");
-        request.getSession().setAttribute("username", username);
         return mav;
     }
 

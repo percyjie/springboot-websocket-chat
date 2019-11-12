@@ -7,11 +7,6 @@ package com.hehe.chat;
 
 import java.io.Serializable;
 
-/**
- * @Author: nelson
- * @Description: get city by ip
- * @Date: created in 2018/03/31/17:40
- */
 public class IpVo implements Serializable{
     private Integer code;
     private Address data;

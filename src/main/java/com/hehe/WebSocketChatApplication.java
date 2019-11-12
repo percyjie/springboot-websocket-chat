@@ -9,7 +9,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.thymeleaf.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
-import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 @SpringBootApplication
@@ -32,10 +31,10 @@ public class WebSocketChatApplication {
         if (StringUtils.isEmpty(username)) {
             username = "匿名用户 " + (int) ((Math.random() * 9 + 1) * 1000);
         }
-
         ModelAndView mav = new ModelAndView("/chat");
         System.out.println("登录用户 :" + username);
-        mav.addObject("username", username);
+
+        mav.addObject("username", username + IpUtil.getAddress(request));
 //        mav.addObject("webSocketUrl", "ws://" + InetAddress.getLocalHost().getHostAddress() + ":" + request.getServerPort() + request.getContextPath() + "/chat");
         return mav;
     }

@@ -1,5 +1,9 @@
 package com.hehe.chat;
 
+import cn.hutool.http.HttpUtil;
+import com.alibaba.fastjson.JSON;
+
+import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -58,4 +62,51 @@ public class IpUtil {
         return ip;
 
     }
+
+
+    public static String getAddress(HttpServletRequest request) {
+        try {
+
+            String ip = request.getHeader("x-forwarded-for");
+            if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+                ip = request.getHeader("Proxy-Client-IP");
+            }
+            if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+                ip = request.getHeader("WL-Proxy-Client-IP");
+            }
+            if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+                ip = request.getRemoteAddr();
+            }
+            if (ip != null && ip.length() != 0 && !"unknown".equalsIgnoreCase(ip)) {
+                // 多次反向代理后会有多个ip值，第一个ip才是真实ip
+                if (ip.indexOf(",") != -1) {
+                    ip = ip.split(",")[0];
+                }
+            }
+            String object = HttpUtil.get("http://ip.taobao.com/service/getIpInfo.php?ip=" + ip);
+            IpVo ipVo = JSON.parseObject(object, IpVo.class);
+            // XX表示内网
+            if (ipVo != null && ipVo.getCode() == 0 && !ipVo.getData().getRegion().equals("XX")) {
+                System.out.println(ipVo.getData().getRegion());
+                System.out.println(ipVo.getData().getCity());
+                return ipVo.getData().getRegion() + ipVo.getData().getCity();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "";
+
+    }
+
+//    public static void main(String[] args) {
+//        String object =HttpUtil.get("http://ip.taobao.com/service/getIpInfo.php?ip=" + "60.176.91.64");
+//        IpVo ipVo = JSON.parseObject(object, IpVo.class);
+//         //XX表示内网
+//        if (ipVo.getCode() == 0 && !ipVo.getData().getRegion().equals("XX")) {
+//            System.out.println(ipVo.getData().getRegion());
+//            System.out.println(ipVo.getData().getCity());
+//        }
+//    }
+
 }

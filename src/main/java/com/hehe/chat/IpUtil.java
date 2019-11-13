@@ -32,6 +32,7 @@ public class IpUtil {
                     ip = ip.split(",")[0];
                 }
             }
+            System.out.println("ip："+ip);
             String object = HttpUtil.get("http://ip.taobao.com/service/getIpInfo.php?ip=" + ip);
             if(StringUtils.isNotBlank(object)){
                 IpVo ipVo = JSON.parseObject(object, IpVo.class);

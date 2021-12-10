@@ -1,4 +1,22 @@
+
+
 spring:
   thymeleaf:
     cache: false
     prefix: classpath:/templates
+  mail:
+    host: smtp.163.com
+    password: ZWRMPOEIYSFTMBCA
+    properties:
+      mail:
+        smtp:
+          auth: true
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory
+          starttls:
+            enable: false
+            required: true
+    username: yogo_dudu@163.com
+    port: 465
+server:
+  port: 9527

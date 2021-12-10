@@ -33,7 +33,7 @@ public class IpUtil {
                 }
             }
             System.out.println("ip："+ip);
-            String object = HttpUtil.get("http://ip.taobao.com/service/getIpInfo.php?ip=" + ip);
+            String object = HttpUtil.get("https://ip.taobao.com/outGetIpInfo?ip="+ ip+" &accessKey=alibaba-inc" );
             if(StringUtils.isNotBlank(object)){
                 IpVo ipVo = JSON.parseObject(object, IpVo.class);
                 // XX表示内网

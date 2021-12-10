@@ -34,7 +34,7 @@ public class WebSocketChatApplication {
         ModelAndView mav = new ModelAndView("/chat");
         System.out.println("登录用户 :" + username);
 
-        mav.addObject("username", username + "(" + IpUtil.getAddress(request) + ")");
+        mav.addObject("username", username );
 //        mav.addObject("webSocketUrl", "ws://" + InetAddress.getLocalHost().getHostAddress() + ":" + request.getServerPort() + request.getContextPath() + "/chat");
         return mav;
     }

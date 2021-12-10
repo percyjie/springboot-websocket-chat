@@ -41,6 +41,8 @@ public class IpUtil {
                     System.out.println(ipVo.getData().getRegion());
                     System.out.println(ipVo.getData().getCity());
                     return ipVo.getData().getRegion() + ipVo.getData().getCity();
+                }{
+                    return "内网";
                 }
             }
         } catch (Exception e) {
